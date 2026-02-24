@@ -12,23 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// clipboard.h – Zwischenablage-Logik und Einfügemechanismus
+// clipboard.h – Clipboard logic and paste mechanism
 #ifndef CLIPBOARD_H
 #define CLIPBOARD_H
 
 #include <string>
 
-/// Einmalig aufrufen (prüft xdotool, erkennt Wayland).
+/// Call once at startup (detects session type, checks available tools).
 void clipboard_init();
 
-/// Textbaustein einfügen: In Zwischenablage kopieren, dann ggf. Ctrl+V senden.
-/// Gibt true zurück, wenn der Paste-Vorgang ausgelöst wurde.
+/// Insert a snippet: copy to clipboard, then simulate Ctrl+V if possible.
+/// Returns true if the paste action was triggered.
 bool insert_snippet(const std::string& text);
 
-/// Prüft, ob xdotool verfügbar ist.
-bool is_xdotool_available();
+/// Check if a paste simulation tool is available (xdotool, wtype, or ydotool).
+bool is_paste_tool_available();
 
-/// Prüft, ob eine Wayland-Sitzung aktiv ist.
+/// Check if a Wayland session is active.
 bool is_wayland_session();
 
 #endif // CLIPBOARD_H

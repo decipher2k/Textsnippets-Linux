@@ -7,7 +7,7 @@ A Linux text snippet manager that runs as a system tray application. Snippets ca
 - **System tray icon** with dynamic context menu (group structure as submenus)
 - **Manager dialog** with TreeView + Editor (caption + multi-line text)
 - **Hierarchical groups** with unlimited nesting depth
-- **Automatic pasting** via clipboard + simulated Ctrl+V (`xdotool`)
+- **Automatic pasting** via clipboard + simulated Ctrl+V (`xdotool` on X11, `wtype`/`ydotool` on Wayland)
 - **Persistence** as JSON file (`~/.config/textsnippets/snippets.json`)
 - **Multilingual** – supports English, German, Spanish, French, Italian, Hindi, Chinese, and Russian
 - Compatible with **GNOME, KDE, XFCE, MATE, Cinnamon** and others
@@ -20,7 +20,8 @@ A Linux text snippet manager that runs as a system tray application. Snippets ca
 sudo apt update
 sudo apt install build-essential cmake pkg-config \
     libgtk-3-dev libayatana-appindicator3-dev \
-    nlohmann-json3-dev xdotool xclip
+    nlohmann-json3-dev xdotool xclip \
+    wtype wl-clipboard ydotool
 ```
 
 ### Fedora
@@ -28,7 +29,8 @@ sudo apt install build-essential cmake pkg-config \
 ```bash
 sudo dnf install gcc-c++ cmake pkg-config \
     gtk3-devel libayatana-appindicator-gtk3-devel \
-    nlohmann-json-devel xdotool xclip
+    nlohmann-json-devel xdotool xclip \
+    wtype wl-clipboard ydotool
 ```
 
 ### Arch Linux
@@ -36,7 +38,8 @@ sudo dnf install gcc-c++ cmake pkg-config \
 ```bash
 sudo pacman -S base-devel cmake pkg-config \
     gtk3 libappindicator-gtk3 \
-    nlohmann-json xdotool xclip
+    nlohmann-json xdotool xclip \
+    wtype wl-clipboard ydotool
 ```
 
 > **Note:** If `nlohmann-json` is not available as a system package, it will be downloaded automatically via CMake FetchContent. An internet connection is required for the first build.
@@ -120,15 +123,23 @@ Snippets are stored in `~/.config/textsnippets/snippets.json`:
 
 ### Wayland
 
-Under **Wayland**, `xdotool` does not work reliably because Wayland does not allow sending keyboard input globally to other windows. In this case:
+Textsnippets supports **Wayland** sessions natively. The application auto-detects the session type and uses the appropriate paste tool:
 
-- The text is **only copied to the clipboard**
-- A desktop notification informs the user
-- Manual pasting with **Ctrl+V** is required
+| Session | Paste tool | Clipboard tool |
+|---------|-----------|----------------|
+| X11     | `xdotool` | `xclip` (GTK)  |
+| Wayland | `wtype` or `ydotool` | `wl-copy` |
 
-Affected desktop environments in Wayland mode: GNOME (default since Ubuntu 21.04), KDE Plasma 6.
+The detection order on Wayland is: **wtype** → **ydotool** → clipboard-only fallback.
 
-**Workaround:** Start the desktop session in X11/Xorg mode.
+Install the recommended packages for full Wayland support:
+
+```bash
+sudo apt install wtype wl-clipboard    # primary
+sudo apt install ydotool               # fallback
+```
+
+If no paste tool is available, snippets are copied to the clipboard and a notification is shown.
 
 ### AppIndicator Support
 

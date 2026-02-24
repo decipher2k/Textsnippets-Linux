@@ -115,24 +115,13 @@ int main(int argc, char* argv[]) {
     });
 
     // ── Warnings (one-time) ──
-    if (!is_xdotool_available()) {
+    if (!is_paste_tool_available()) {
         GtkWidget* msg = gtk_message_dialog_new(
             nullptr,
             GTK_DIALOG_MODAL,
             GTK_MESSAGE_WARNING,
             GTK_BUTTONS_OK,
-            "%s", tr("warn_xdotool"));
-        gtk_dialog_run(GTK_DIALOG(msg));
-        gtk_widget_destroy(msg);
-    }
-
-    if (is_wayland_session()) {
-        GtkWidget* msg = gtk_message_dialog_new(
-            nullptr,
-            GTK_DIALOG_MODAL,
-            GTK_MESSAGE_INFO,
-            GTK_BUTTONS_OK,
-            "%s", tr("warn_wayland"));
+            "%s", tr("warn_no_paste_tool"));
         gtk_dialog_run(GTK_DIALOG(msg));
         gtk_widget_destroy(msg);
     }

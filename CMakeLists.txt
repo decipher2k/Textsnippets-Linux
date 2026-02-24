@@ -91,7 +91,8 @@ set(CPACK_PACKAGE_CONTACT "decipher2k20")
 set(CPACK_PACKAGE_MAINTAINER "decipher2k20")
 set(CPACK_DEBIAN_PACKAGE_SECTION "utils")
 set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libgtk-3-0, libayatana-appindicator3-1, xdotool, xclip")
+set(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+set(CPACK_DEBIAN_PACKAGE_RECOMMENDS "xdotool, xclip, wtype, wl-clipboard, ydotool")
 
 # Architecture detection
 if(CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64" OR CMAKE_SYSTEM_PROCESSOR STREQUAL "arm64")

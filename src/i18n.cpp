@@ -58,17 +58,14 @@ static const TransMap s_en = {
     {"dlg_new_group_name",    "New group name:"},
     {"btn_cancel",            "Cancel"},
     {"btn_ok",                "OK"},
-    {"warn_xdotool_title",    "xdotool not found"},
-    {"warn_xdotool",          "xdotool was not found.\n\n"
+    {"warn_no_paste_tool",    "No paste tool found.\n\n"
                               "Snippets will only be copied to the clipboard.\n"
-                              "For automatic pasting, install xdotool:\n\n"
-                              "  sudo apt install xdotool      (Debian/Ubuntu)\n"
-                              "  sudo dnf install xdotool      (Fedora)\n"
-                              "  sudo pacman -S xdotool        (Arch)"},
-    {"warn_wayland",          "Wayland session detected.\n\n"
-                              "Automatic pasting via xdotool may not work\n"
-                              "reliably under Wayland.\n"
-                              "Text will be copied to the clipboard instead."},
+                              "For automatic pasting, install one of these tools:\n\n"
+                              "  X11:    sudo apt install xdotool\n"
+                              "  Wayland: sudo apt install wtype\n"
+                              "           or: sudo apt install ydotool\n\n"
+                              "For Wayland clipboard support, also install:\n"
+                              "  sudo apt install wl-clipboard"},
     {"notif_title",           "Textsnippets"},
     {"notif_clipboard",       "Text has been copied to the clipboard."},
     {"unnamed",               "Unnamed"},
@@ -119,17 +116,14 @@ static const TransMap s_de = {
     {"dlg_new_group_name",    "Neuer Gruppenname:"},
     {"btn_cancel",            "Abbrechen"},
     {"btn_ok",                "OK"},
-    {"warn_xdotool_title",    "xdotool nicht gefunden"},
-    {"warn_xdotool",          "xdotool wurde nicht gefunden.\n\n"
+    {"warn_no_paste_tool",    "Kein Einfüge-Tool gefunden.\n\n"
                               "Textbausteine werden nur in die Zwischenablage kopiert.\n"
-                              u8"Für automatisches Einfügen installieren Sie xdotool:\n\n"
-                              "  sudo apt install xdotool      (Debian/Ubuntu)\n"
-                              "  sudo dnf install xdotool      (Fedora)\n"
-                              "  sudo pacman -S xdotool        (Arch)"},
-    {"warn_wayland",          "Wayland-Sitzung erkannt.\n\n"
-                              u8"Das automatische Einfügen via xdotool funktioniert unter\n"
-                              u8"Wayland möglicherweise nicht zuverlässig.\n"
-                              "Der Text wird stattdessen in die Zwischenablage kopiert."},
+                              u8"Für automatisches Einfügen installieren Sie eines dieser Tools:\n\n"
+                              "  X11:    sudo apt install xdotool\n"
+                              "  Wayland: sudo apt install wtype\n"
+                              "           oder: sudo apt install ydotool\n\n"
+                              u8"Für Wayland-Zwischenablage zusätzlich:\n"
+                              "  sudo apt install wl-clipboard"},
     {"notif_title",           "Textsnippets"},
     {"notif_clipboard",       "Text wurde in die Zwischenablage kopiert."},
     {"unnamed",               "Unbenannt"},
@@ -180,17 +174,14 @@ static const TransMap s_es = {
     {"dlg_new_group_name",    "Nuevo nombre del grupo:"},
     {"btn_cancel",            "Cancelar"},
     {"btn_ok",                "Aceptar"},
-    {"warn_xdotool_title",    "xdotool no encontrado"},
-    {"warn_xdotool",          "xdotool no fue encontrado.\n\n"
-                              "Los fragmentos solo se copiar\u00e1n al portapapeles.\n"
-                              "Para el pegado autom\u00e1tico, instale xdotool:\n\n"
-                              "  sudo apt install xdotool      (Debian/Ubuntu)\n"
-                              "  sudo dnf install xdotool      (Fedora)\n"
-                              "  sudo pacman -S xdotool        (Arch)"},
-    {"warn_wayland",          u8"Sesión Wayland detectada.\n\n"
-                              "El pegado autom\u00e1tico con xdotool puede no funcionar\n"
-                              u8"de forma fiable en Wayland.\n"
-                              "El texto se copiar\u00e1 al portapapeles."},
+    {"warn_no_paste_tool",    "No se encontró herramienta de pegado.\n\n"
+                              "Los fragmentos solo se copiarán al portapapeles.\n"
+                              "Para el pegado automático, instale una de estas herramientas:\n\n"
+                              "  X11:    sudo apt install xdotool\n"
+                              "  Wayland: sudo apt install wtype\n"
+                              "           o: sudo apt install ydotool\n\n"
+                              "Para soporte de portapapeles en Wayland:\n"
+                              "  sudo apt install wl-clipboard"},
     {"notif_title",           "Textsnippets"},
     {"notif_clipboard",       "El texto se ha copiado al portapapeles."},
     {"unnamed",               "Sin nombre"},
@@ -241,17 +232,14 @@ static const TransMap s_fr = {
     {"dlg_new_group_name",    "Nouveau nom du groupe :"},
     {"btn_cancel",            "Annuler"},
     {"btn_ok",                "OK"},
-    {"warn_xdotool_title",    "xdotool introuvable"},
-    {"warn_xdotool",          "xdotool n'a pas \u00e9t\u00e9 trouv\u00e9.\n\n"
-                              "Les extraits seront uniquement copi\u00e9s dans le press-papiers.\n"
-                              "Pour le collage automatique, installez xdotool :\n\n"
-                              "  sudo apt install xdotool      (Debian/Ubuntu)\n"
-                              "  sudo dnf install xdotool      (Fedora)\n"
-                              "  sudo pacman -S xdotool        (Arch)"},
-    {"warn_wayland",          "Session Wayland d\u00e9tect\u00e9e.\n\n"
-                              "Le collage automatique via xdotool peut ne pas fonctionner\n"
-                              "de mani\u00e8re fiable sous Wayland.\n"
-                              "Le texte sera copi\u00e9 dans le presse-papiers."},
+    {"warn_no_paste_tool",    "Aucun outil de collage trouv\u00e9.\n\n"
+                              "Les extraits seront uniquement copi\u00e9s dans le presse-papiers.\n"
+                              "Pour le collage automatique, installez un de ces outils :\n\n"
+                              "  X11:    sudo apt install xdotool\n"
+                              "  Wayland: sudo apt install wtype\n"
+                              "           ou : sudo apt install ydotool\n\n"
+                              "Pour le support du presse-papiers Wayland :\n"
+                              "  sudo apt install wl-clipboard"},
     {"notif_title",           "Textsnippets"},
     {"notif_clipboard",       u8"Le texte a été copié dans le presse-papiers."},
     {"unnamed",               u8"Sans nom"},
@@ -302,17 +290,14 @@ static const TransMap s_it = {
     {"dlg_new_group_name",    "Nuovo nome del gruppo:"},
     {"btn_cancel",            "Annulla"},
     {"btn_ok",                "OK"},
-    {"warn_xdotool_title",    "xdotool non trovato"},
-    {"warn_xdotool",          "xdotool non \u00e8 stato trovato.\n\n"
+    {"warn_no_paste_tool",    "Nessuno strumento di incollaggio trovato.\n\n"
                               "I frammenti verranno solo copiati negli appunti.\n"
-                              "Per incollare automaticamente, installa xdotool:\n\n"
-                              "  sudo apt install xdotool      (Debian/Ubuntu)\n"
-                              "  sudo dnf install xdotool      (Fedora)\n"
-                              "  sudo pacman -S xdotool        (Arch)"},
-    {"warn_wayland",          "Sessione Wayland rilevata.\n\n"
-                              "L'incollaggio automatico tramite xdotool potrebbe\n"
-                              "non funzionare in modo affidabile sotto Wayland.\n"
-                              "Il testo verr\u00e0 copiato negli appunti."},
+                              "Per incollare automaticamente, installa uno di questi strumenti:\n\n"
+                              "  X11:    sudo apt install xdotool\n"
+                              "  Wayland: sudo apt install wtype\n"
+                              "           oppure: sudo apt install ydotool\n\n"
+                              "Per il supporto appunti Wayland:\n"
+                              "  sudo apt install wl-clipboard"},
     {"notif_title",           "Textsnippets"},
     {"notif_clipboard",       u8"Il testo è stato copiato negli appunti."},
     {"unnamed",               "Senza nome"},
@@ -363,17 +348,14 @@ static const TransMap s_hi = {
     {"dlg_new_group_name",    u8"नया समूह नाम:"},
     {"btn_cancel",            u8"रद्द करें"},
     {"btn_ok",                u8"ठीक है"},
-    {"warn_xdotool_title",    u8"xdotool नहीं मिला"},
-    {"warn_xdotool",          u8"xdotool नहीं मिला।\n\n"
+    {"warn_no_paste_tool",    u8"कोई पेस्ट टूल नहीं मिला।\n\n"
                               u8"स्निपेट केवल क्लिपबोर्ड पर कॉपी किए जाएंगे।\n"
-                              u8"स्वचालित पेस्टिंग के लिए xdotool इंस्टॉल करें:\n\n"
-                              "  sudo apt install xdotool      (Debian/Ubuntu)\n"
-                              "  sudo dnf install xdotool      (Fedora)\n"
-                              "  sudo pacman -S xdotool        (Arch)"},
-    {"warn_wayland",          u8"Wayland सत्र का पता चला।\n\n"
-                              u8"xdotool के माध्यम से स्वचालित पेस्टिंग Wayland\n"
-                              u8"के तहत विश्वसनीय रूप से काम नहीं कर सकती।\n"
-                              u8"पाठ इसके बजाय क्लिपबोर्ड पर कॉपी किया जाएगा।"},
+                              u8"स्वचालित पेस्टिंग के लिए इन साधनों में से एक इंस्टॉल करें:\n\n"
+                              "  X11:    sudo apt install xdotool\n"
+                              "  Wayland: sudo apt install wtype\n"
+                              "           or: sudo apt install ydotool\n\n"
+                              u8"Wayland क्लिपबोर्ड समर्थन के लिए:\n"
+                              "  sudo apt install wl-clipboard"},
     {"notif_title",           "Textsnippets"},
     {"notif_clipboard",       u8"पाठ क्लिपबोर्ड पर कॉपी किया गया है।"},
     {"unnamed",               u8"अनाम"},
@@ -424,17 +406,14 @@ static const TransMap s_zh = {
     {"dlg_new_group_name",    u8"新组名称："},
     {"btn_cancel",            u8"取消"},
     {"btn_ok",                u8"确定"},
-    {"warn_xdotool_title",    u8"未找到 xdotool"},
-    {"warn_xdotool",          u8"未找到 xdotool。\n\n"
+    {"warn_no_paste_tool",    u8"未找到粘贴工具。\n\n"
                               u8"文本片段将仅复制到剪贴板。\n"
-                              u8"如需自动粘贴，请安装 xdotool：\n\n"
-                              "  sudo apt install xdotool      (Debian/Ubuntu)\n"
-                              "  sudo dnf install xdotool      (Fedora)\n"
-                              "  sudo pacman -S xdotool        (Arch)"},
-    {"warn_wayland",          u8"检测到 Wayland 会话。\n\n"
-                              u8"通过 xdotool 自动粘贴在 Wayland 下\n"
-                              u8"可能不太可靠。\n"
-                              u8"文本将被复制到剪贴板。"},
+                              u8"如需自动粘贴，请安装以下工具之一：\n\n"
+                              "  X11:    sudo apt install xdotool\n"
+                              "  Wayland: sudo apt install wtype\n"
+                              "           or: sudo apt install ydotool\n\n"
+                              u8"Wayland 剪贴板支持：\n"
+                              "  sudo apt install wl-clipboard"},
     {"notif_title",           "Textsnippets"},
     {"notif_clipboard",       u8"文本已复制到剪贴板。"},
     {"unnamed",               u8"未命名"},
@@ -485,17 +464,14 @@ static const TransMap s_ru = {
     {"dlg_new_group_name",    u8"Новое имя группы:"},
     {"btn_cancel",            u8"Отмена"},
     {"btn_ok",                "OK"},
-    {"warn_xdotool_title",    u8"xdotool не найден"},
-    {"warn_xdotool",          u8"xdotool не найден.\n\n"
+    {"warn_no_paste_tool",    u8"Инструмент вставки не найден.\n\n"
                               u8"Фрагменты будут только скопированы в буфер обмена.\n"
-                              u8"Для автоматической вставки установите xdotool:\n\n"
-                              "  sudo apt install xdotool      (Debian/Ubuntu)\n"
-                              "  sudo dnf install xdotool      (Fedora)\n"
-                              "  sudo pacman -S xdotool        (Arch)"},
-    {"warn_wayland",          u8"Обнаружен сеанс Wayland.\n\n"
-                              u8"Автоматическая вставка через xdotool может\n"
-                              u8"работать ненадёжно в Wayland.\n"
-                              u8"Текст будет скопирован в буфер обмена."},
+                              u8"Для автоматической вставки установите один из этих инструментов:\n\n"
+                              "  X11:    sudo apt install xdotool\n"
+                              "  Wayland: sudo apt install wtype\n"
+                              "           \u0438\u043b\u0438: sudo apt install ydotool\n\n"
+                              u8"Для поддержки буфера обмена Wayland:\n"
+                              "  sudo apt install wl-clipboard"},
     {"notif_title",           "Textsnippets"},
     {"notif_clipboard",       u8"Текст скопирован в буфер обмена."},
     {"unnamed",               u8"Без имени"},

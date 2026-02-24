@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Textsnippets
+Comment=Text snippet manager with system tray
+Exec=textsnippets
+Icon=accessories-text-editor
+Terminal=false
+Type=Application
+Categories=Utility;TextTools;GTK;
+X-GNOME-Autostart-enabled=true
+StartupNotify=false
+NoDisplay=true
