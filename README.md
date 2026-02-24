@@ -1,17 +1,18 @@
-# Textbaustein-Manager
+# Textsnippets
 
-Ein Linux-Textbaustein-Manager, der als System-Tray-Anwendung läuft. Textbausteine können hierarchisch in Gruppen organisiert und per Klick im Tray-Menü in das aktive Fenster eingefügt werden.
+A Linux text snippet manager that runs as a system tray application. Snippets can be organized hierarchically in groups and inserted into the active window via the tray menu.
 
 ## Features
 
-- **System-Tray-Icon** mit dynamischem Kontextmenü (Gruppenstruktur als Untermenüs)
-- **Verwaltungsdialog** mit TreeView + Editor (Caption + mehrzeiliger Text)
-- **Hierarchische Gruppen** mit beliebiger Verschachtelungstiefe
-- **Automatisches Einfügen** via Zwischenablage + simuliertem Ctrl+V (`xdotool`)
-- **Persistenz** als JSON-Datei (`~/.config/textbaustein-manager/snippets.json`)
-- Kompatibel mit **GNOME, KDE, XFCE, MATE, Cinnamon** u. a.
+- **System tray icon** with dynamic context menu (group structure as submenus)
+- **Manager dialog** with TreeView + Editor (caption + multi-line text)
+- **Hierarchical groups** with unlimited nesting depth
+- **Automatic pasting** via clipboard + simulated Ctrl+V (`xdotool`)
+- **Persistence** as JSON file (`~/.config/textsnippets/snippets.json`)
+- **Multilingual** – supports English, German, Spanish, French, Italian, Hindi, Chinese, and Russian
+- Compatible with **GNOME, KDE, XFCE, MATE, Cinnamon** and others
 
-## Abhängigkeiten
+## Dependencies
 
 ### Ubuntu / Debian
 
@@ -38,75 +39,76 @@ sudo pacman -S base-devel cmake pkg-config \
     nlohmann-json xdotool xclip
 ```
 
-> **Hinweis:** Falls `nlohmann-json` nicht als Systempaket verfügbar ist, wird es automatisch per CMake FetchContent heruntergeladen. Internetverbindung beim ersten Build erforderlich.
+> **Note:** If `nlohmann-json` is not available as a system package, it will be downloaded automatically via CMake FetchContent. An internet connection is required for the first build.
 
 ## Build
 
 ```bash
-# Im Projektverzeichnis:
+# In the project directory:
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
 ```
 
-Das fertige Binary liegt unter `build/textbaustein-manager`.
+The resulting binary is located at `build/textsnippets`.
 
-## Starten
+## Running
 
 ```bash
-./build/textbaustein-manager
+./build/textsnippets
 ```
 
-Die Anwendung startet minimiert im System Tray (kein sichtbares Fenster). Ein Icon erscheint in der Taskleiste.
+The application starts minimized in the system tray (no visible window). An icon appears in the taskbar.
 
-### Autostart einrichten
+### Autostart
 
-Erstellen Sie eine `.desktop`-Datei:
+The `.deb` package automatically installs an autostart entry in `/etc/xdg/autostart/`. For manual setup:
 
 ```bash
 mkdir -p ~/.config/autostart
-cat > ~/.config/autostart/textbaustein-manager.desktop <<EOF
+cat > ~/.config/autostart/textsnippets.desktop <<EOF
 [Desktop Entry]
 Type=Application
-Name=Textbaustein-Manager
-Exec=/pfad/zu/textbaustein-manager
+Name=Textsnippets
+Exec=textsnippets
 Icon=accessories-text-editor
 X-GNOME-Autostart-enabled=true
 EOF
 ```
 
-## Benutzung
+## Usage
 
-1. **Rechts-/Linksklick** auf das Tray-Icon öffnet das Kontextmenü
-2. **Gruppen** werden als Untermenüs dargestellt
-3. **Klick auf einen Textbaustein** → Text wird in die Zwischenablage kopiert und automatisch eingefügt (Ctrl+V)
-4. **„Textbausteine verwalten…"** → Öffnet den Editor-Dialog
-5. **„Beenden"** → Beendet die Anwendung
+1. **Right-/left-click** on the tray icon opens the context menu
+2. **Groups** are displayed as submenus
+3. **Click on a snippet** → text is copied to the clipboard and automatically pasted (Ctrl+V)
+4. **"Manage Snippets…"** → opens the editor dialog
+5. **"Settings…"** → change the application language
+6. **"Quit"** → exits the application
 
-### Editor-Dialog
+### Editor Dialog
 
-- **TreeView** (links): Gruppen auf-/zuklappen, Eintrag auswählen
-- **Editor** (rechts): Caption und Text bearbeiten
-- **Speichern**: Änderungen übernehmen (JSON wird sofort geschrieben)
-- **Verwerfen**: Felder auf letzten Stand zurücksetzen
-- **+ Gruppe**: Neue Gruppe anlegen
-- **+ Baustein**: Neuen Textbaustein anlegen
-- **Löschen**: Ausgewählten Eintrag löschen (mit Bestätigung)
-- **Umbenennen**: Gruppe umbenennen (per Dialog)
+- **TreeView** (left): expand/collapse groups, select entries
+- **Editor** (right): edit caption and text
+- **Save**: apply changes (JSON is written immediately)
+- **Discard**: reset fields to the last saved state
+- **+ Group**: create a new group
+- **+ Snippet**: create a new text snippet
+- **Delete**: delete the selected entry (with confirmation)
+- **Rename**: rename a group (via dialog)
 
-## Datenformat
+## Data Format
 
-Die Textbausteine werden in `~/.config/textbaustein-manager/snippets.json` gespeichert:
+Snippets are stored in `~/.config/textsnippets/snippets.json`:
 
 ```json
 {
   "groups": [
     {
-      "name": "Grüße",
+      "name": "Greetings",
       "children": [],
       "snippets": [
         {
-          "caption": "Begrüßung",
-          "text": "Sehr geehrte Damen und Herren,\n\nvielen Dank für Ihre Nachricht."
+          "caption": "Greeting",
+          "text": "Dear Sir or Madam,\n\nThank you for your message."
         }
       ]
     }
@@ -114,44 +116,49 @@ Die Textbausteine werden in `~/.config/textbaustein-manager/snippets.json` gespe
 }
 ```
 
-## Bekannte Einschränkungen
+## Known Limitations
 
 ### Wayland
 
-Unter **Wayland** funktioniert `xdotool` nicht zuverlässig, da Wayland kein globales Senden von Tastatureingaben an andere Fenster erlaubt. In diesem Fall:
+Under **Wayland**, `xdotool` does not work reliably because Wayland does not allow sending keyboard input globally to other windows. In this case:
 
-- Der Text wird **nur in die Zwischenablage** kopiert
-- Eine Desktop-Benachrichtigung informiert den Benutzer
-- Manuelles Einfügen mit **Ctrl+V** ist erforderlich
+- The text is **only copied to the clipboard**
+- A desktop notification informs the user
+- Manual pasting with **Ctrl+V** is required
 
-Betroffene Desktop-Umgebungen im Wayland-Modus: GNOME (Standard ab Ubuntu 21.04), KDE Plasma 6.
+Affected desktop environments in Wayland mode: GNOME (default since Ubuntu 21.04), KDE Plasma 6.
 
-**Workaround:** Starten Sie die Desktop-Sitzung im X11-/Xorg-Modus.
+**Workaround:** Start the desktop session in X11/Xorg mode.
 
-### AppIndicator-Unterstützung
+### AppIndicator Support
 
-Manche Desktop-Umgebungen benötigen eine Erweiterung für System-Tray-Icons:
+Some desktop environments require an extension for system tray icons:
 
-- **GNOME**: [AppIndicator-Erweiterung](https://extensions.gnome.org/extension/615/appindicator-support/) installieren
-- **KDE / XFCE / MATE / Cinnamon**: Funktioniert in der Regel ohne Zusatz
+- **GNOME**: Install the [AppIndicator extension](https://extensions.gnome.org/extension/615/appindicator-support/)
+- **KDE / XFCE / MATE / Cinnamon**: Usually works out of the box
 
 ### Drag & Drop
 
-Drag & Drop zum Verschieben von Bausteinen zwischen Gruppen ist derzeit nicht implementiert.
+Drag and drop for moving snippets between groups is not yet implemented.
 
-## Projektstruktur
+## Project Structure
 
 ```
-├── CMakeLists.txt              Build-Konfiguration
-├── README.md                   Diese Datei
+├── CMakeLists.txt              Build configuration
+├── Dockerfile.amd64            Docker build for amd64 cross-compilation
+├── README.md                   This file
+├── data/
+│   ├── textsnippets.desktop            Application menu entry
+│   └── textsnippets-autostart.desktop  Autostart entry
 └── src/
-    ├── main.cpp                Einstiegspunkt, GTK-Init
-    ├── tray.h / tray.cpp       Tray-Icon und Menüaufbau
-    ├── manager_dialog.h/.cpp   Verwaltungsdialog (TreeView + Editor)
-    ├── snippet_store.h/.cpp    Datenmodell, JSON laden/speichern
-    └── clipboard.h/.cpp        Zwischenablage und Einfügemechanismus
+    ├── main.cpp                Entry point, GTK init, settings dialog
+    ├── tray.h / tray.cpp       Tray icon and menu construction
+    ├── manager_dialog.h/.cpp   Manager dialog (TreeView + Editor)
+    ├── snippet_store.h/.cpp    Data model, JSON load/save
+    ├── clipboard.h/.cpp        Clipboard and paste mechanism
+    └── i18n.h / i18n.cpp       Internationalization (8 languages)
 ```
 
-## Lizenz
+## License
 
-Dieses Projekt steht unter der MIT-Lizenz.
+Copyright 2026 Dennis Michael Heine. Licensed under the Apache License, Version 2.0.
