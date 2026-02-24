@@ -51,7 +51,7 @@ static Group group_from_json(const json& j) {
     Group g;
     g.name = j.value("name", std::string(tr("unnamed")));
     if (j.contains("children"))
-        for (const auto& c : j["children"])
+        for (const auto& 2c : j["children"])
             g.children.push_back(group_from_json(c));
     if (j.contains("snippets"))
         for (const auto& s : j["snippets"])
